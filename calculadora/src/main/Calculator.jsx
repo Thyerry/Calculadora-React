@@ -11,19 +11,18 @@ const initialState = {
     lastOperation: { operation: null, value: null },
     values: [0, 0, 0],
     current: 0
-
 }
 
 export default class Calculator extends Component {
 
     state = { ...initialState }
-
     constructor(props) {
         super(props)
         this.clearMemory = this.clearMemory.bind(this)
         this.setOperation = this.setOperation.bind(this)
         this.addDigit = this.addDigit.bind(this)
         this.applyOperation = this.applyOperation.bind(this)
+        this.invertSignal = this.invertSignal.bind(this)
     }
 
     clearMemory() {
@@ -79,22 +78,34 @@ export default class Calculator extends Component {
                 return this.applyOperation(operation, values)
             }
 
-
             default: break
         }
+    }
+
+    invertSignal() {
+        const currentValue =  parseFloat(this.state.displayValue) * -1
+        const displayValue = currentValue.toString()
+
+        this.setState({ displayValue })
+        
+            const i = this.state.current
+            const newValue = parseFloat(displayValue)
+            const values = [...this.state.values]
+            values[i] = newValue
+            this.setState({ values })
+        
     }
     addDigit(n) {
         if (n === '.' && this.state.displayValue.includes('.')) {
             return
         }
-
         const clearDisplay = this.state.displayValue === '0' || this.state.clearDisplay
 
         const currentValue = clearDisplay ? '' : this.state.displayValue
         const displayValue = currentValue + n
 
         this.setState({ displayValue, clearDisplay: false })
-
+        console.log(displayValue)
         if (n !== '.') {
             const i = this.state.current
             const newValue = parseFloat(displayValue)
@@ -102,14 +113,15 @@ export default class Calculator extends Component {
             values[i] = newValue
             this.setState({ values })
         }
+
     }
 
     render() {
         return (
-            <div className="calculator">
+            <div className="calculator" >
                 <Display value={this.state.displayValue} />
                 <Button label="AC" operation click={this.clearMemory} />
-                <Button label="+/-" operation />
+                <Button label="+/-" operation click={this.invertSignal} />
                 <Button label="%" operation />
                 <Button label="/" operation click={this.setOperation} />
                 <Button label="7" click={this.addDigit} />
