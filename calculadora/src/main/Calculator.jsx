@@ -8,8 +8,10 @@ const initialState = {
     displayValue: '0',
     clearDisplay: false,
     operation: null,
-    values: [0, 0],
+    lastOperation: { operation: null, value: null },
+    values: [0, 0, 0],
     current: 0
+
 }
 
 export default class Calculator extends Component {
@@ -21,6 +23,7 @@ export default class Calculator extends Component {
         this.clearMemory = this.clearMemory.bind(this)
         this.setOperation = this.setOperation.bind(this)
         this.addDigit = this.addDigit.bind(this)
+        this.applyOperation = this.applyOperation.bind(this)
     }
 
     clearMemory() {
@@ -34,12 +37,14 @@ export default class Calculator extends Component {
             const equals = operation === '='
             const currentOperation = this.state.operation
             const values = [...this.state.values]
+            const continuous = { cOperation: operation, cValue: this.state.values }
 
-            values[0] = eval(`${values[0]} ${currentOperation} ${values[1]}`)
+            values[2] = this.applyOperation(currentOperation, values, equals)
+            values[0] = 0
             values[1] = 0
 
             this.setState({
-                displayValue: values[0],
+                displayValue: values[2],
                 operation: equals ? null : operation,
                 current: equals ? 0 : 1,
                 values: values
@@ -47,6 +52,36 @@ export default class Calculator extends Component {
         }
 
         console.log(operation)
+    }
+
+    applyOperation(operation, values) {
+        switch (operation) {
+            case '+': {
+                this.setState({ lastOperation: { operation, value: values[1] } })
+                return values[0] + values[1]
+            }
+            case '-': {
+                this.setState({ lastOperation: { operation, value: values[1] } })
+                return values[0] - values[1]
+            }
+            case '*': {
+                this.setState({ lastOperation: { operation, value: values[1] } })
+                return values[0] * values[1]
+            }
+            case '/': {
+                this.setState({ lastOperation: { operation, value: values[1] } })
+                return values[0] / values[1]
+            }
+            case '=': {
+                operation = this.state.lastOperation.operation
+                values[1] = this.state.lastOperation.value
+                values[0] = values[2]
+                return this.applyOperation(operation, values)
+            }
+
+
+            default: break
+        }
     }
     addDigit(n) {
         if (n === '.' && this.state.displayValue.includes('.')) {
