@@ -28,8 +28,24 @@ export default class Calculator extends Component {
     }
 
     setOperation(operation) {
-        if (this.state.current === 0){ this.setState({current: 1}) }
-        else{}
+        if (this.state.current === 0) {
+            this.setState({ current: 1, clearDisplay: true, operation })
+        } else {
+            const equals = operation === '='
+            const currentOperation = this.state.operation
+            const values = [...this.state.values]
+
+            values[0] = eval(`${values[0]} ${currentOperation} ${values[1]}`)
+            values[1] = 0
+
+            this.setState({
+                displayValue: values[0],
+                operation: equals ? null : operation,
+                current: equals ? 0 : 1,
+                values: values
+            })
+        }
+
         console.log(operation)
     }
     addDigit(n) {
