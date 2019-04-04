@@ -1,44 +1,19 @@
 {
   "users": [
     {
-      "id": 1,
-      "name": "Thyerry NUnes dos Santos",
-      "email": "thyerry.nunes@gmail.com"
+      "name": "Quero coca",
+      "email": "cocaacabo",
+      "id": 1
     },
     {
-      "id": 2,
-      "name": "Thobson Barbosa dos Santos",
-      "email": "thobosa@email.com"
+      "name": "tes",
+      "email": "te",
+      "id": 2
     },
     {
-      "name": "Thyerry Nunes dos Santos",
-      "email": "thyerry.nunes@gmail.com",
+      "name": "ad",
+      "email": "da",
       "id": 3
-    },
-    {
-      "name": "asd",
-      "email": "aaaaaaa",
-      "id": 4
-    },
-    {
-      "name": "",
-      "email": "",
-      "id": 5
-    },
-    {
-      "name": "asd",
-      "email": "fas",
-      "id": 6
-    },
-    {
-      "name": "f",
-      "email": "aav ",
-      "id": 7
-    },
-    {
-      "name": "x",
-      "email": "xx",
-      "id": 8
     }
   ]
 }
