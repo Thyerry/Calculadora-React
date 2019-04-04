@@ -11,7 +11,7 @@ const headerProps = {
 const baseUrl = 'http://localhost:3001/users'
 const initialState = {
     user: { name: '', email: '' },
-    lista: []
+    list: []
 }
 
 export default class UserCrud extends Component {
@@ -36,7 +36,7 @@ export default class UserCrud extends Component {
 
     getUpdatedList(user) {
         const list = this.state.list.filter(u => u.id !== user.id)
-        
+
         list.unshift(user)
         return list
     }
