@@ -1,2 +1,2 @@
-# Calculadora-React
-projetinho de calculadora feito em react
+# Repositório de pequenos projetos
+Criei esse repositório só para colocar alguns pequenos projetos de aprendizado. :wink:
